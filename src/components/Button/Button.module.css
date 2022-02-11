@@ -1,0 +1,53 @@
+.button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.primaryButton {
+    width:350px;
+    height: 30px;
+    background: turquoise;
+}
+
+.animatedButton{
+    color:#ff7675;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    width:350px;
+    text-decoration:none;
+    text-align:center;
+    margin:30px 0;
+    display: block;
+    background-image: linear-gradient(to left,transparent,transparent 50%,#ff7675 50%,#ff7675);
+    background-position: 100% 0;
+    background-size: 200% 100%;
+    transition: all .25s ease-in;
+    font: 400 18px Roboto;
+    border: 1px solid #ff7675;
+}
+.animatedButton:hover {
+    background-position: 0 0;
+    color:#fff;
+}
+
+.close {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background: silver;
+    border-radius: 50%;
+}
+
+.close:after{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: inline-block;
+    content: "\00d7";
+    color:  white;
+}
