@@ -13,7 +13,7 @@ export const mock: Mock[] = [
     price: 1000,
     discountPrice: 999,
     totalDiscountPrice: 999,
-    totalPrice: 999,
+    totalPrice: 1000,
     parameters: {
       color: 'Space Gray',
       size: '30cm',

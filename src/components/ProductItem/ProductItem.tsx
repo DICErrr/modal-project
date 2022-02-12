@@ -1,83 +1,69 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 
 import classes from './ProductItem.module.css';
 import { ProductItemProps } from './ProductItem.props';
 import ProductCounter from '../ProductCounter/ProductCounter';
-import { AppContext } from '../../context/app.context';
 import { addCurrencySymbol } from '../../utils/currency';
 
-const ProductItem: FC<ProductItemProps> = ({ product }): JSX.Element => {
-  const { products, setProducts } = useContext(AppContext);
-
-  const decrease = (): void => {
-    const newProducts = products
-      .map((item) => {
-        if (item.id === product.id) {
-          return {
-            ...item,
-            quantity: --item.quantity,
-            totalPrice: product.discountPrice ? product.discountPrice : product.totalPrice - product.price,
-            totalDiscountPrice:
-              product.discountPrice && product.totalDiscountPrice && product.totalDiscountPrice - product.discountPrice,
-          };
-        }
-
-        return {
-          ...item,
-        };
-      })
-      .filter((item) => item.quantity > 0);
-
-    setProducts && setProducts(newProducts);
-  };
-  const increase = (): void => {
-    const newProducts = products.map((item) => {
-      if (item.id === product.id) {
-        return {
-          ...item,
-          quantity: ++item.quantity,
-          totalPrice: product.discountPrice ? product.discountPrice : product.price * product.quantity,
-          totalDiscountPrice: product.discountPrice && product.discountPrice * product.quantity,
-        };
-      }
-
-      return {
-        ...item,
-      };
-    });
-
-    setProducts && setProducts(newProducts);
-  };
+const ProductItem: FC<ProductItemProps> = ({
+  product,
+  increase,
+  decrease,
+}): JSX.Element => {
+  const {
+    img,
+    quantity,
+    title,
+    parameters,
+    totalDiscountPrice,
+    id,
+    totalPrice,
+    discountPrice,
+  } = product;
 
   return (
     <li className={classes.productItemWrapper}>
-      <img className={classes.productImage} src={product.img} alt={product.title} />
+      <img className={classes.productImage} src={img} alt={title} />
       <div className={classes.productItem}>
-        <h3 className={classes.productTitle}>{product.title}</h3>
-        {product.parameters && (
+        <h3 className={classes.productTitle}>{title}</h3>
+        {parameters && (
           <div className={classes.productParameters}>
-            {product.parameters.color && (
-              <div className={classes.productParameter}>Color: {product.parameters.color}</div>
+            {parameters.color && (
+              <div className={classes.productParameter}>
+                Color: {parameters.color}
+              </div>
             )}
-            {product.parameters.size && <div className={classes.productParameter}>Size: {product.parameters.size}</div>}
-            {product.parameters.weight && (
-              <div className={classes.productParameter}>Weight: {product.parameters.weight}</div>
+            {parameters.size && (
+              <div className={classes.productParameter}>
+                Size: {parameters.size}
+              </div>
+            )}
+            {parameters.weight && (
+              <div className={classes.productParameter}>
+                Weight: {parameters.weight}
+              </div>
             )}
           </div>
         )}
         <div className={classes.productPriceWrapper}>
-          <ProductCounter count={product.quantity} increase={increase} decrease={decrease} />
+          <ProductCounter
+            count={quantity}
+            increase={() => increase(id)}
+            decrease={() => decrease(id)}
+          />
           <div>
             <span
               className={classNames(classes.productPrice, {
-                [classes.productDiscountPrice]: product.discountPrice,
+                [classes.productDiscountPrice]: discountPrice,
               })}
             >
-              {addCurrencySymbol(product.totalPrice)}
+              {addCurrencySymbol(totalPrice)}
             </span>
-            {product.totalDiscountPrice && (
-              <span className={classes.productDiscountPrice}>{addCurrencySymbol(product.totalDiscountPrice)}</span>
+            {totalDiscountPrice && (
+              <span className={classes.productDiscountPrice}>
+                {addCurrencySymbol(totalDiscountPrice)}
+              </span>
             )}
           </div>
         </div>
