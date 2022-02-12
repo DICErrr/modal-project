@@ -55,7 +55,7 @@ const ProductList: FC<ProductListProps> = ({
 
       setProducts(newProducts);
     },
-    [products],
+    [products, setProducts],
   );
   const increase = useCallback(
     (id: string): void => {
@@ -99,7 +99,7 @@ const ProductList: FC<ProductListProps> = ({
 
       setProducts(newProducts);
     },
-    [products],
+    [products, setProducts],
   );
   return (
     <ul className={classes.productList}>
