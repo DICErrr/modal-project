@@ -4,4 +4,6 @@ export interface ModalProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElem
   children?: ReactNode;
   setActive: Dispatch<SetStateAction<boolean>>;
   active: boolean;
+  modalHeader?: JSX.Element;
+  modalFooter?: JSX.Element;
 }

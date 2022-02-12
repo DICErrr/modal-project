@@ -5,7 +5,7 @@ import classes from './Modal.module.css';
 import { ModalProps } from './Modal.props';
 import Button from '../Button/Button';
 
-const Modal: FC<ModalProps> = ({ active, setActive, children }): JSX.Element => {
+const Modal: FC<ModalProps> = ({ active, setActive, modalHeader, modalFooter, children }): JSX.Element => {
   const stopPropagation = (e: React.MouseEvent<HTMLDivElement>): void => e.stopPropagation();
 
   const hideModal = (): void => setActive(false);
@@ -25,9 +25,11 @@ const Modal: FC<ModalProps> = ({ active, setActive, children }): JSX.Element => 
       >
         <div className={classes.modalHeader}>
           <Button type="cancel" onClick={hideModal} />
+          {modalHeader}
         </div>
-        <div className={classes.modalBody}>Body {children}</div>
+        <div className={classes.modalBody}>{children}</div>
         <div className={classes.modalFooter}>
+          {modalFooter}
           <Button type="primary" onClick={hideModal}>
             Order
           </Button>
