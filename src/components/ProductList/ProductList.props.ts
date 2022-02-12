@@ -4,4 +4,5 @@ import { Mock } from '../../models';
 
 export interface ProductListProps extends DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement> {
   products: Mock[];
+  setProducts: (newProducts: Mock[]) => void;
 }

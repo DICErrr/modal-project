@@ -4,7 +4,10 @@ import classes from './ModalHeader.module.css';
 import { ModalHeaderProps } from './ModalHeader.props';
 import InfoBlock from '../InfoBlock/InfoBlock';
 
-const ModalHeader: FC<ModalHeaderProps> = ({ title, text }): JSX.Element => {
+const ModalHeader: FC<ModalHeaderProps> = ({
+  title,
+  text,
+}): JSX.Element => {
   return (
     <>
       <InfoBlock amount={5} />

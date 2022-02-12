@@ -5,8 +5,16 @@ import classes from './Modal.module.css';
 import { ModalProps } from './Modal.props';
 import Button from '../Button/Button';
 
-const Modal: FC<ModalProps> = ({ active, setActive, modalHeader, modalFooter, children }): JSX.Element => {
-  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>): void => e.stopPropagation();
+const Modal: FC<ModalProps> = ({
+  active,
+  setActive,
+  modalHeader,
+  modalFooter,
+  children,
+}): JSX.Element => {
+  const stopPropagation = (
+    e: React.MouseEvent<HTMLDivElement>,
+  ): void => e.stopPropagation();
 
   const hideModal = (): void => setActive(false);
 

@@ -4,7 +4,11 @@ import classes from './Button.module.css';
 import { ButtonProps } from './Button.props';
 import classNames from 'classnames';
 
-const Button: FC<ButtonProps> = ({ type = 'primary', onClick, children }): JSX.Element => (
+const Button: FC<ButtonProps> = ({
+  type = 'primary',
+  onClick,
+  children,
+}): JSX.Element => (
   <button
     className={classNames(classes.button, {
       [classes.primaryButton]: type === 'primary',
