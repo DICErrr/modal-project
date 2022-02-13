@@ -3,22 +3,19 @@ import React, { FC, useState } from 'react';
 import classes from './App.module.css';
 import Button from './components/Button/Button';
 import Modal from './components/Modal/Modal';
-import { mock } from './mock/mock';
-import { Mock } from './models';
 import ProductList from './components/ProductList/ProductList';
 import ModalHeader from './components/ModalHeader/ModalHeader';
 import Tip from './components/Tip/Tip';
+import { useProducts } from './hooks/useProducts';
+import { PRODUCTS } from './constants/products.constants';
 
 const App: FC = (): JSX.Element => {
   const [modalActive, setModalActive] = useState<boolean>(false);
-  const [products, setProducts] = useState<Mock[]>(mock);
+  const { products, changeProducts } = useProducts();
 
   const openModal = (): void => {
-    setProducts(mock);
+    changeProducts({ type: PRODUCTS.Default });
     setModalActive(true);
-  };
-  const changeProducts = (newProducts: Mock[]): void => {
-    setProducts(newProducts);
   };
 
   return (
@@ -41,7 +38,7 @@ const App: FC = (): JSX.Element => {
       >
         <ProductList
           products={products}
-          setProducts={changeProducts}
+          changeProducts={changeProducts}
         />
       </Modal>
     </div>

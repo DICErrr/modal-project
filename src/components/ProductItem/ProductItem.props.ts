@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-import { Mock } from '../../models';
+import { Mock } from '../../interfaces';
 
 export interface ProductItemProps
   extends DetailedHTMLProps<
