@@ -1,8 +1,13 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, Dispatch, HTMLAttributes } from 'react';
 
-import { Mock } from '../../models';
+import { Mock } from '../../interfaces';
+import { ProductActionTypes } from '../../types';
 
-export interface ProductListProps extends DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement> {
+export interface ProductListProps
+  extends DetailedHTMLProps<
+    HTMLAttributes<HTMLUListElement>,
+    HTMLUListElement
+  > {
   products: Mock[];
-  setProducts: (newProducts: Mock[]) => void;
+  changeProducts: Dispatch<ProductActionTypes>;
 }

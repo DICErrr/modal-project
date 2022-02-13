@@ -1,3 +1,7 @@
+import { Dispatch } from 'react';
+
+import { ProductActionTypes } from '../types';
+
 export interface Parameters {
   color: string;
   size: string;
@@ -14,4 +18,9 @@ export interface Mock {
   totalDiscountPrice?: number;
   discountPrice?: number;
   parameters?: Parameters;
+}
+
+export interface Products {
+  products: Mock[];
+  changeProducts: Dispatch<ProductActionTypes>;
 }

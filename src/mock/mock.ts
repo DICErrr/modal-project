@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import MacBookPro from '../images/macbookPro.jpeg';
 import MacBook from '../images/macbookAir.jpeg';
-import { Mock } from '../models';
+import { Mock } from '../interfaces';
 
 export const mock: Mock[] = [
   {
