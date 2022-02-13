@@ -3,71 +3,29 @@ import React, { FC, useCallback } from 'react';
 import classes from './ProductList.module.css';
 import { ProductListProps } from './ProductList.props';
 import ProductItem from '../ProductItem/ProductItem';
+import { Mock } from '../../models';
+import { COUNTER_TYPES } from '../../constants/counter.constants';
 
 const ProductList: FC<ProductListProps> = ({
   products,
   setProducts,
 }): JSX.Element => {
-  const decrease = useCallback(
-    (id: string): void => {
-      const newProducts = products
-        .map((product) => {
-          const {
-            price,
-            quantity,
-            discountPrice,
-            parameters,
-            totalPrice,
-            totalDiscountPrice,
-          } = product;
-
-          const finalProduct = parameters
-            ? {
-                ...product,
-                parameters: {
-                  ...parameters,
-                },
-              }
-            : { ...product };
-
-          if (product.id === id) {
-            const newQuantity = quantity - 1;
-            const productWithNewQuantity = {
-              quantity: newQuantity,
-              totalPrice: discountPrice
-                ? totalPrice - price
-                : totalPrice - price,
-              totalDiscountPrice:
-                discountPrice &&
-                totalDiscountPrice &&
-                totalDiscountPrice - discountPrice,
-            };
-
-            return {
-              ...finalProduct,
-              ...productWithNewQuantity,
-            };
-          }
-
-          return finalProduct;
-        })
-        .filter((product) => product.quantity > 0);
-
-      setProducts(newProducts);
-    },
-    [products, setProducts],
-  );
-  const increase = useCallback(
-    (id: string): void => {
-      const newProducts = products.map((product) => {
+  const getNewProducts = useCallback(
+    (id: string, type: COUNTER_TYPES): Mock[] => {
+      let newQuantity;
+      let productWithNewQuantity;
+      let isFinalProductWithParams;
+      return products.map((product) => {
         const {
           price,
           quantity,
           discountPrice,
           parameters,
           totalPrice,
+          totalDiscountPrice,
         } = product;
-        const finalProduct = parameters
+
+        isFinalProductWithParams = parameters
           ? {
               ...product,
               parameters: {
@@ -76,10 +34,31 @@ const ProductList: FC<ProductListProps> = ({
             }
           : { ...product };
 
-        if (product.id === id) {
-          const newQuantity = quantity + 1;
+        if (product.id === id && type === COUNTER_TYPES.Decrease) {
+          newQuantity = quantity - 1;
 
-          const productWithNewQuantity = {
+          productWithNewQuantity = {
+            quantity: newQuantity,
+            totalPrice: discountPrice
+              ? totalPrice - price
+              : totalPrice - price,
+            totalDiscountPrice:
+              discountPrice &&
+              totalDiscountPrice &&
+              totalDiscountPrice - discountPrice,
+          };
+
+          return {
+            ...isFinalProductWithParams,
+            ...productWithNewQuantity,
+          };
+        } else if (
+          product.id === id &&
+          type === COUNTER_TYPES.Increase
+        ) {
+          newQuantity = quantity + 1;
+
+          productWithNewQuantity = {
             quantity: newQuantity,
             totalPrice: discountPrice
               ? totalPrice + price
@@ -89,26 +68,45 @@ const ProductList: FC<ProductListProps> = ({
           };
 
           return {
-            ...finalProduct,
+            ...isFinalProductWithParams,
             ...productWithNewQuantity,
           };
         }
 
-        return finalProduct;
+        return isFinalProductWithParams;
       });
+    },
+    [products],
+  );
+
+  const onDecrease = useCallback(
+    (id: string): void => {
+      const newProducts = getNewProducts(
+        id,
+        COUNTER_TYPES.Decrease,
+      ).filter((product) => product.quantity > 0);
 
       setProducts(newProducts);
     },
-    [products, setProducts],
+    [getNewProducts, setProducts],
   );
+  const onIncrease = useCallback(
+    (id: string): void => {
+      const newProducts = getNewProducts(id, COUNTER_TYPES.Increase);
+
+      setProducts(newProducts);
+    },
+    [getNewProducts, setProducts],
+  );
+
   return (
     <ul className={classes.productList}>
       {products.map((product) => (
         <ProductItem
           key={product.id}
           product={product}
-          increase={increase}
-          decrease={decrease}
+          onIncrease={onIncrease}
+          onDecrease={onDecrease}
         />
       ))}
     </ul>

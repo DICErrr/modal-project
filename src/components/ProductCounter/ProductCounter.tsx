@@ -5,21 +5,21 @@ import classes from './ProductCounter.module.css';
 
 const ProductCounter: FC<ProductCounterProps> = ({
   count,
-  increase,
-  decrease,
+  onIncrease,
+  onDecrease,
 }) => {
   return (
     <div className={classes.productCounter}>
       <div
         className={classes.productCounterAction}
-        onClick={decrease}
+        onClick={onDecrease}
       >
         &#8722;
       </div>
       <div>{count}</div>
       <div
         className={classes.productCounterAction}
-        onClick={increase}
+        onClick={onIncrease}
       >
         &#43;
       </div>
