@@ -8,8 +8,8 @@ import { addCurrencySymbol } from '../../utils/currency';
 
 const ProductItem: FC<ProductItemProps> = ({
   product,
-  increase,
-  decrease,
+  onIncrease,
+  onDecrease,
 }): JSX.Element => {
   const {
     img,
@@ -49,8 +49,8 @@ const ProductItem: FC<ProductItemProps> = ({
         <div className={classes.productPriceWrapper}>
           <ProductCounter
             count={quantity}
-            increase={() => increase(id)}
-            decrease={() => decrease(id)}
+            onIncrease={() => onIncrease(id)}
+            onDecrease={() => onDecrease(id)}
           />
           <div>
             <span
